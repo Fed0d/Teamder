@@ -1,5 +1,6 @@
 package com.Fed0d.Teamder.Controllers;
 
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,5 +23,11 @@ public class MainController {
     public String about(Model model){
         model.addAttribute("title", "О нас");
         return "about";
+    }
+
+    @GetMapping("/login")
+    public String login(Model model){
+        model.addAttribute("title", "Авторизация");
+        return "login";
     }
 }
