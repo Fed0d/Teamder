@@ -12,9 +12,7 @@ public class Message {
     private String text;
     private boolean isRead;
     private LocalDate date;
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "dialog_id")
-    private Dialog dialog;
+
 
     public Message() {
     }
@@ -24,7 +22,6 @@ public class Message {
         this.text = text;
         this.isRead = isRead;
         this.date = date;
-        this.dialog = dialog;
     }
 
     public void setId(Long id) {
@@ -35,16 +32,9 @@ public class Message {
         this.date = date;
     }
 
-    public void setDialog(Dialog dialog) {
-        this.dialog = dialog;
-    }
 
     public Long getId() {
         return id;
-    }
-
-    public Dialog getDialog() {
-        return dialog;
     }
 
     public LocalDate getDate() {

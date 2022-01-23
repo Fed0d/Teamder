@@ -2,6 +2,9 @@ package com.Fed0d.Teamder.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "t_ad")
@@ -32,7 +35,7 @@ public class Ad{
     public Ad() {
     }
 
-    public Ad(Long id, String tag, Integer lowAgeLvl, Integer highAgeLvl, String gender, String text, String elo, LocalDate date, User author, Game game, Goal goal) {
+    public Ad(Long id, String tag, Integer lowAgeLvl, Integer highAgeLvl, String gender, String text, String elo, boolean isActive, LocalDate date, User author, Game game, Goal goal) {
         this.id = id;
         this.tag = tag;
         this.lowAgeLvl = lowAgeLvl;
@@ -40,27 +43,19 @@ public class Ad{
         this.gender = gender;
         this.text = text;
         this.elo = elo;
+        this.isActive = isActive;
         this.date = date;
-        this.isActive = true;
         this.author = author;
         this.game = game;
         this.goal = goal;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public Long getId() {
+        return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getTag() {
@@ -117,6 +112,14 @@ public class Ad{
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public User getAuthor() {
