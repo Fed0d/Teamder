@@ -1,4 +1,4 @@
-package com.Fed0d.Teamder.Security;
+/*package com.Fed0d.Teamder.Security;
 
 
 import com.Fed0d.Teamder.model.User;
@@ -23,6 +23,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email).orElseThrow(() ->
                 new UsernameNotFoundException("User doesn't exists"));
-        return SecutrityUser.fromUser(user);
+        return SecurityUser.fromUser(user);
     }
-}
+}*/
