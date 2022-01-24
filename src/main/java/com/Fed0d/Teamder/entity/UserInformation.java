@@ -8,9 +8,6 @@ public class UserInformation {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private User user;
     private String email;
     private String gender;
     private String name;
@@ -20,9 +17,8 @@ public class UserInformation {
     public UserInformation() {
     }
 
-    public UserInformation(Long id, User user, String email, String gender, String name, String surname, Integer age) {
+    public UserInformation(Long id, String email, String gender, String name, String surname, Integer age) {
         this.id = id;
-        this.user = user;
         this.email = email;
         this.gender = gender;
         this.name = name;
@@ -36,14 +32,6 @@ public class UserInformation {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getEmail() {

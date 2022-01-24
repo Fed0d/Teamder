@@ -4,6 +4,7 @@ package com.Fed0d.Teamder.service;
 import com.Fed0d.Teamder.entity.Role;
 import com.Fed0d.Teamder.entity.User;
 import com.Fed0d.Teamder.repository.RoleRepository;
+
 import com.Fed0d.Teamder.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,6 +29,9 @@ public class UserService implements UserDetailsService {
     RoleRepository roleRepository;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+    /*@Autowired
+    UserInformationRepository userInformationRepository;*/
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
