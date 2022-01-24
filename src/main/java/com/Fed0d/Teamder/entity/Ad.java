@@ -3,6 +3,7 @@ package com.Fed0d.Teamder.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -21,7 +22,7 @@ public class Ad{
     private String text;
     private String elo;
     private boolean isActive;
-    private LocalDate date;
+    private Date date;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User author;
@@ -35,7 +36,21 @@ public class Ad{
     public Ad() {
     }
 
-    public Ad(Long id, String tag, Integer lowAgeLvl, Integer highAgeLvl, String gender, String text, String elo, boolean isActive, LocalDate date, User author, Game game, Goal goal) {
+    public Ad(String tag, Integer lowAgeLvl, Integer highAgeLvl, String gender, String text, String elo, Date date, User author, Game game, Goal goal) {
+        this.tag = tag;
+        this.lowAgeLvl = lowAgeLvl;
+        this.highAgeLvl = highAgeLvl;
+        this.gender = gender;
+        this.text = text;
+        this.elo = elo;
+        this.isActive = true;
+        this.date = date;
+        this.author = author;
+        this.game = game;
+        this.goal = goal;
+    }
+
+    public Ad(Long id, String tag, Integer lowAgeLvl, Integer highAgeLvl, String gender, String text, String elo, boolean isActive, Date date, User author, Game game, Goal goal) {
         this.id = id;
         this.tag = tag;
         this.lowAgeLvl = lowAgeLvl;
@@ -114,11 +129,11 @@ public class Ad{
         isActive = active;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

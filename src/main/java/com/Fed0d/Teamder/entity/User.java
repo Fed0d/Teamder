@@ -22,6 +22,9 @@ public class User implements UserDetails {
     private String passwordConfirm;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
+    /*@OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "userinformation_id")
+    private UserInformation userInformation;*/
 
     public User() {
     }
@@ -93,4 +96,11 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    /*public UserInformation getUserInformation() {
+        return userInformation;
+    }
+
+    public void setUserInformation(UserInformation userInformation) {
+        this.userInformation = userInformation;
+    }*/
 }
