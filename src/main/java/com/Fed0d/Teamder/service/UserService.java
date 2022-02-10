@@ -3,6 +3,7 @@ package com.Fed0d.Teamder.service;
 
 import com.Fed0d.Teamder.entity.Role;
 import com.Fed0d.Teamder.entity.User;
+import com.Fed0d.Teamder.entity.UserInformation;
 import com.Fed0d.Teamder.repository.RoleRepository;
 
 import com.Fed0d.Teamder.repository.UserRepository;
@@ -29,6 +30,8 @@ public class UserService implements UserDetailsService {
     RoleRepository roleRepository;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private UserInformationService userInformationService;
     /*@Autowired
     UserInformationRepository userInformationRepository;*/
 
@@ -59,11 +62,16 @@ public class UserService implements UserDetailsService {
         if (userFromDB != null) {
             return false;
         }
-
+        UserInformation userInformation=new UserInformation();
+        userInformationService.saveUserInformation(userInformation);
+        user.setUserInformation(userInformation);
         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
+    }
+    public void updateUser(User user){
+        userRepository.save(user);
     }
 
     public boolean deleteUser(Long userId) {

@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class NewsController {
@@ -33,7 +31,13 @@ public class NewsController {
 
     @GetMapping("/news")
     public String news(Map<String,Object> model){
+        model.put("games",gamesService.allGames());
+        model.put("goals",goalsService.allGoals());
         Iterable<Ad> ads=adRepository.findAll();
+        model.put("filterAge",null);
+        model.put("filterGender",null);
+        model.put("filterGame",null);
+        model.put("filterGoal",null);
         model.put("ads",ads);
         return "news";
     }
@@ -58,18 +62,30 @@ public class NewsController {
         return "news";
     }
 
-  /*  @PostMapping("filter")
-    public String filter(@RequestParam String filter, Map<String, Object> model) {
-        Iterable<Message> messages;
+  @PostMapping("news")
+    public String filter( @RequestParam Optional<Integer> age,
+                          @RequestParam Optional<String> gender, @RequestParam Optional<String> game,
+                          @RequestParam Optional<String> goal, Map<String, Object> model) {
+      Iterable<Ad> ads=adRepository.findAll();
+      ArrayList<Ad> result=new ArrayList<>();
+      Iterator<Ad> it=ads.iterator();
+        while(it.hasNext()){
+            Ad ad=it.next();
+            if((age.isPresent()&&(age.get()< ad.getLowAgeLvl()||age.get()> ad.getHighAgeLvl()))||
+                (!gender.get().equals("")&&(!gender.get().equals(ad.getGender())))||
+                  (game.isPresent()&&(!game.get().equals(ad.getGame().getGameName())))||
+                    (goal.isPresent()&&(!goal.get().equals(ad.getGoal().getGoalName()))))
+                continue;
+            result.add(ad);
 
-        if (filter != null && !filter.isEmpty()) {
-            messages = messageRepo.findByTag(filter);
-        } else {
-            messages = messageRepo.findAll();
         }
-
-        model.put("messages", messages);
-
-        return "main";
-    }*/
+        model.put("games",gamesService.allGames());
+        model.put("goals",goalsService.allGoals());
+        model.put("ads", result);
+        model.put("filterAge",age.isPresent()?age.get():null);
+        model.put("filterGender",gender.get());
+        model.put("filterGame",game.isPresent()?game.get():"empty");
+        model.put("filterGoal",goal.isPresent()?goal.get():"empty");
+        return "news";
+    }
 }

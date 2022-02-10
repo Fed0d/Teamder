@@ -22,9 +22,9 @@ public class User implements UserDetails {
     private String passwordConfirm;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
-    /*@OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userinformation_id")
-    private UserInformation userInformation;*/
+    private UserInformation userInformation;
 
     public User() {
     }
@@ -96,11 +96,11 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    /*public UserInformation getUserInformation() {
+    public UserInformation getUserInformation() {
         return userInformation;
     }
 
     public void setUserInformation(UserInformation userInformation) {
         this.userInformation = userInformation;
-    }*/
+    }
 }
