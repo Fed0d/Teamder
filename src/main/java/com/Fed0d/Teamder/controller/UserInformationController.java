@@ -31,28 +31,29 @@ public class UserInformationController {
     private UserInformationService userInformationService;
 
 
-
     @GetMapping("/userInformation")
-    public String userInf(@RequestParam Long id, Model model){
-        model.addAttribute("userName",userService.findUserById(id).getUsername());
-        UserInformation inf=userService.findUserById(id).getUserInformation();
-        model.addAttribute("userInformation",inf);
+    public String userInf(@RequestParam Long id, Model model) {
+        model.addAttribute("userName", userService.findUserById(id).getUsername());
+        UserInformation inf = userService.findUserById(id).getUserInformation();
+        model.addAttribute("userInformation", inf);
         return "userInformation";
     }
+
     @GetMapping("/userInformationForm")
-    public String userInfGetForm(Model model){
-        User user=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        UserInformation userInformation=userService.findUserById(user.getId()).getUserInformation();
+    public String userInfGetForm(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserInformation userInformation = userService.findUserById(user.getId()).getUserInformation();
 
         model.addAttribute("userInformation", userInformation);
         return "userInformationForm";
     }
+
     @PostMapping("userInformationForm")
     public String userInfSetForm(@RequestParam String email, @RequestParam String name,
                                  @RequestParam String surname, @RequestParam Integer age,
                                  @RequestParam String gender, Map<String, Object> model) {
-        User user=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        UserInformation userInformation=userService.findUserById(user.getId()).getUserInformation();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserInformation userInformation = userService.findUserById(user.getId()).getUserInformation();
         userInformation.setAge(age);
         userInformation.setEmail(email);
         userInformation.setName(name);

@@ -19,7 +19,7 @@ public class GoalService {
     GoalRepository goalRepository;
 
     public Iterable<Goal> allGoals() {
-        Iterable<Goal> goals=goalRepository.findAll();
+        Iterable<Goal> goals = goalRepository.findAll();
         return goals;
     }
 

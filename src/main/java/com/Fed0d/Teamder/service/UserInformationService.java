@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class UserInformationService {
     @PersistenceContext
@@ -32,14 +33,14 @@ public class UserInformationService {
         return userInformation;
     }
 
-   public UserInformation findUserInformationById(Long id) {
+    public UserInformation findUserInformationById(Long id) {
         Optional<UserInformation> userFromDb = userInformationRepository.findById(id);
         return userFromDb.orElse(new UserInformation());
     }
 
     public List<UserInformation> allUserInformations() {
-        Iterator<UserInformation> it=userInformationRepository.findAll().iterator();
-        List<UserInformation> userInformations=new ArrayList<>();
+        Iterator<UserInformation> it = userInformationRepository.findAll().iterator();
+        List<UserInformation> userInformations = new ArrayList<>();
         it.forEachRemaining(userInformations::add);
         return userInformations;
     }
@@ -54,10 +55,10 @@ public class UserInformationService {
         userInformationRepository.save(user);
         return true;
     }
+
     public void updateUserInformation(UserInformation userInformation) {
         userInformationRepository.save(userInformation);
     }
-
 
 
 }

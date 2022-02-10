@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
-public class GamesService{
+public class GamesService {
     @PersistenceContext
     private EntityManager em;
     @Autowired
@@ -40,9 +40,10 @@ public class GamesService{
     }
 
     public Iterable<Game> allGames() {
-        Iterable<Game> games=gameRepository.findAll();
+        Iterable<Game> games = gameRepository.findAll();
         return games;
     }
+
     public Game findGameByGamName(String gameName) throws UsernameNotFoundException {
         List<Game> game = gameRepository.findByGameName(gameName);
 
@@ -52,11 +53,12 @@ public class GamesService{
 
         return game.get(0);
     }
+
     public boolean saveGame(Game game) {
-       // Game gameFromDB = gameRepository.findByGameName(game.getGameName()).get(0);
+        // Game gameFromDB = gameRepository.findByGameName(game.getGameName()).get(0);
 
         //if (gameFromDB != null) {
-          //  return false;
+        //  return false;
         //}
 
         gameRepository.save(game);

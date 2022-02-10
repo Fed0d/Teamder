@@ -3,10 +3,10 @@ package com.Fed0d.Teamder.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name ="t_goals")
+@Table(name = "t_goals")
 public class Goal {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String goalName;
 
