@@ -7,7 +7,7 @@ import java.time.LocalDate;
 @Table(name = "t_messages")
 public class Message {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String text;
     private boolean isRead;

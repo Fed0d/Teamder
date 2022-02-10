@@ -9,9 +9,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "t_ad")
-public class Ad{
+public class Ad {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
 
@@ -27,10 +27,10 @@ public class Ad{
     @JoinColumn(name = "user_id")
     private User author;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="game_id")
+    @JoinColumn(name = "game_id")
     private Game game;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="goal_id")
+    @JoinColumn(name = "goal_id")
     private Goal goal;
 
     public Ad() {

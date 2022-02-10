@@ -9,7 +9,7 @@ import java.util.Set;
 @Table(name = "t_dialogs")
 public class Dialog {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user1_id")
@@ -18,8 +18,9 @@ public class Dialog {
     @JoinColumn(name = "user2_id")
     private User user2;
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name="message_id")
-    private List<Message> message=new ArrayList<>();
+    @JoinColumn(name = "message_id")
+    private List<Message> message = new ArrayList<>();
+
     public Dialog() {
     }
 
@@ -27,7 +28,7 @@ public class Dialog {
         this.id = id;
         this.user1 = user1;
         this.user2 = user2;
-        this.message=message;
+        this.message = message;
     }
 
     public void setId(Long id) {
