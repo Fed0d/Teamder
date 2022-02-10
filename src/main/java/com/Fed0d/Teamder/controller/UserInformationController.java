@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class UserInformationController {
@@ -29,7 +27,8 @@ public class UserInformationController {
     private GoalService goalsService;
     @Autowired
     private UserInformationService userInformationService;
-
+    @Autowired
+    private AdRepository adRepository;
 
 
     @GetMapping("/userInformation")
@@ -46,6 +45,22 @@ public class UserInformationController {
 
         model.addAttribute("userInformation", userInformation);
         return "userInformationForm";
+    }
+    @GetMapping("/myAds")
+    public String news(Map<String,Object> model){
+        Iterable<Ad> ads=adRepository.findAll();
+        ArrayList<Ad> result=new ArrayList<>();
+        Iterator<Ad> it=ads.iterator();
+        while(it.hasNext()){
+            Ad ad=it.next();
+            long a=ad.getAuthor().getId();
+            long b=((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+            if(a==b){
+            result.add(ad);}
+
+        }
+        model.put("ads",result);
+        return "myAds";
     }
     @PostMapping("userInformationForm")
     public String userInfSetForm(@RequestParam String email, @RequestParam String name,

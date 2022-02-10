@@ -50,7 +50,7 @@ public class Ad{
         this.goal = goal;
     }
 
-    public Ad(Long id, String tag, Integer lowAgeLvl, Integer highAgeLvl, String gender, String text, String elo, boolean isActive, Date date, User author, Game game, Goal goal) {
+    public Ad(Long id, String tag, Integer lowAgeLvl, Integer highAgeLvl, String gender, String text, String elo, Date date, User author, Game game, Goal goal) {
         this.id = id;
         this.tag = tag;
         this.lowAgeLvl = lowAgeLvl;
@@ -58,7 +58,7 @@ public class Ad{
         this.gender = gender;
         this.text = text;
         this.elo = elo;
-        this.isActive = isActive;
+        this.isActive = true;
         this.date = date;
         this.author = author;
         this.game = game;

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
@@ -48,14 +49,60 @@ public class NewsController {
         return "addAd";
     }
     @PostMapping("addAd")
-    public String addAd(@RequestParam String tag, @RequestParam Integer lowAgeLvl,
+    public String addAd(@RequestParam Optional<Long> id,@RequestParam String tag, @RequestParam Integer lowAgeLvl,
                       @RequestParam Integer highAgeLvl, @RequestParam String gender,
                       @RequestParam String text, @RequestParam String elo,
                       @RequestParam String game,
                       @RequestParam String goal, Map<String, Object> model) {
         Date date=new Date();
         User author=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Ad ad = new Ad(tag, lowAgeLvl, highAgeLvl, gender, text, elo,date,author, gamesService.findGameByGamName(game), goalsService.findGoalByGoalName(goal));
+        Ad ad;
+        if(id.isPresent())
+            ad=new Ad(id.get(), tag, lowAgeLvl, highAgeLvl, gender, text, elo,date,author, gamesService.findGameByGamName(game), goalsService.findGoalByGoalName(goal));
+        else
+            ad = new Ad(tag, lowAgeLvl, highAgeLvl, gender, text, elo,date,author, gamesService.findGameByGamName(game), goalsService.findGoalByGoalName(goal));
+
+        adRepository.save(ad);
+
+        return "news";
+    }
+    @PostMapping("/myAds")
+    public String updateAd(@RequestParam Long id, @RequestParam Optional<String> tag, @RequestParam Optional<Integer> lowAgeLvl,
+                           @RequestParam Optional<Integer> highAgeLvl, @RequestParam Optional<String> gender,
+                           @RequestParam Optional<String> text, @RequestParam Optional<String> elo,
+                           @RequestParam Optional<String> game,
+                           @RequestParam Optional<String> goal,  Model model){
+        model.addAttribute("games",gamesService.allGames());
+        model.addAttribute("goals",goalsService.allGoals());
+        if(game.isPresent()){
+            Date date=new Date();
+            User author=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            Ad ad;
+            ad=new Ad(id, tag.get(), lowAgeLvl.get(), highAgeLvl.get(), gender.get(), text.get(), elo.get(),date,author, gamesService.findGameByGamName(game.get()), goalsService.findGoalByGoalName(goal.get()));
+
+            adRepository.save(ad);
+            return "myAds";
+
+        }else{
+        Optional<Ad> ad=adRepository.findById(id);
+        if(ad.isPresent()?(ad.get().getAuthor().getId()==((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId()):false){
+        model.addAttribute("ad",ad.get());
+        return "addAd";}
+        else return "empty";}
+    }
+    @PutMapping("/myAds")
+    public String putAd(@RequestParam Optional<Long> id,@RequestParam String tag, @RequestParam Integer lowAgeLvl,
+                        @RequestParam Integer highAgeLvl, @RequestParam String gender,
+                        @RequestParam String text, @RequestParam String elo,
+                        @RequestParam String game,
+                        @RequestParam String goal, Map<String, Object> model) {
+        Date date=new Date();
+        User author=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Ad ad;
+        if(id.isPresent())
+            ad=new Ad(id.get(), tag, lowAgeLvl, highAgeLvl, gender, text, elo,date,author, gamesService.findGameByGamName(game), goalsService.findGoalByGoalName(goal));
+        else
+            ad = new Ad(tag, lowAgeLvl, highAgeLvl, gender, text, elo,date,author, gamesService.findGameByGamName(game), goalsService.findGoalByGoalName(goal));
 
         adRepository.save(ad);
 
