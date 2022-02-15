@@ -6,6 +6,7 @@ import com.Fed0d.Teamder.entity.User;
 import com.Fed0d.Teamder.entity.UserInformation;
 import com.Fed0d.Teamder.repository.RoleRepository;
 
+import com.Fed0d.Teamder.repository.UserInformationRepository;
 import com.Fed0d.Teamder.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,8 +33,8 @@ public class UserService implements UserDetailsService {
     BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private UserInformationService userInformationService;
-    /*@Autowired
-    UserInformationRepository userInformationRepository;*/
+    @Autowired
+    UserInformationRepository userInformationRepository;
 
 
     @Override
@@ -67,6 +68,7 @@ public class UserService implements UserDetailsService {
         user.setUserInformation(userInformation);
         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userInformationRepository.save(userInformation);
         userRepository.save(user);
         return true;
     }

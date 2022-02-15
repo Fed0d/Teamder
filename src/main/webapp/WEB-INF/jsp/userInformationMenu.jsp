@@ -14,7 +14,7 @@
     <sec:authorize access="isAuthenticated()">
         <h4><a href="/userInformationForm"> О себе</a></h4>
         <h4><a href="/myAds">Мои объявления</a></h4>
-        <h4><a href="/empty">Мои чаты</a></h4>
+        <h4><a href="/dialogs">Мои чаты</a></h4>
         <h4><a href="/logout">Выйти</a></h4>
     </sec:authorize>
     <sec:authorize access="!isAuthenticated()">

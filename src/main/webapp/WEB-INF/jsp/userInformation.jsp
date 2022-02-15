@@ -15,6 +15,7 @@
         <p>${userInformation.name} ${userInformation.surname}</p>
         <p>Возраст: ${userInformation.age}</p>
         <p>Пол: ${userInformation.gender}</p><br>
+        <a href=""></a>
     </div>
 
     <a href="/">Главная</a>
