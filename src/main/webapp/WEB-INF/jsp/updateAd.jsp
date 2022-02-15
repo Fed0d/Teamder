@@ -16,7 +16,7 @@
 <body>
 <div>
     <h1> Мы поможем вам найти с кем поиграть!!! Опишите его...</h1>
-    <form method="put">
+    <form method="post">
         <p><input type="hidden" name="id" value="${ad.id}"></p>
         <input type="text" name="tag" value="${ad.tag}" placeholder="Название">
         <p>Возраст: от </p><input type="number" value="${ad.lowAgeLvl}" name="lowAgeLvl">

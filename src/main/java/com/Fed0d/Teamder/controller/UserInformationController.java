@@ -34,6 +34,7 @@ public class UserInformationController {
     @GetMapping("/userInformation")
     public String userInf(@RequestParam Long id, Model model){
         model.addAttribute("userName",userService.findUserById(id).getUsername());
+        model.addAttribute("userId",id);
         UserInformation inf=userService.findUserById(id).getUserInformation();
         model.addAttribute("userInformation",inf);
         return "userInformation";

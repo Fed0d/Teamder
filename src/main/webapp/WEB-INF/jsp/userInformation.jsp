@@ -17,7 +17,7 @@
         <p>${userInformation.name} ${userInformation.surname}</p>
         <p>Возраст: ${userInformation.age}</p>
         <p>Пол: ${userInformation.gender}</p><br>
-        <a href=""></a>
+        <a href="/chat?id=${userId}">Перейти к чату</a>
     </div>
 
     <a href="/">Главная</a>

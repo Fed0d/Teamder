@@ -17,6 +17,12 @@ public class Message {
     public Message() {
     }
 
+    public Message(String text, boolean isRead, LocalDate date) {
+        this.text = text;
+        this.isRead = isRead;
+        this.date = date;
+    }
+
     public Message(Long id, String text, boolean isRead, LocalDate date, Dialog dialog) {
         this.id = id;
         this.text = text;

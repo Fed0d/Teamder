@@ -2,6 +2,7 @@ package com.Fed0d.Teamder.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -31,6 +32,12 @@ public class Dialog {
         this.message = message;
     }
 
+    public Dialog(User user1, User user2) {
+        this.user1 = user1;
+        this.user2 = user2;
+
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -42,7 +49,18 @@ public class Dialog {
     public void setUser2(User user2) {
         this.user2 = user2;
     }
-
+    public Message getlastMessage(){
+        message.sort(new Comparator<Message>() {
+            @Override
+            public int compare(Message o1, Message o2) {
+               if(o1.getDate().isAfter(o2.getDate())){
+                   return 1;
+               }
+               return -1;
+            }
+        });
+        return message.get(0);
+    }
     public Long getId() {
         return id;
     }
@@ -61,5 +79,8 @@ public class Dialog {
 
     public void setMessage(List<Message> message) {
         this.message = message;
+    }
+    public void addMessage(Message message) {
+        this.message.add( message);
     }
 }
