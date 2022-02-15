@@ -14,6 +14,7 @@
 </head>
 
 <body>
+<%@ include file="Blocks/header.jsp"%>
 <div>
     <h1> Расскажите о себе</h1>
     <form method="post">

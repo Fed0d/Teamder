@@ -30,7 +30,6 @@ public class UserInformationController {
     @Autowired
     private AdRepository adRepository;
 
-
     @GetMapping("/userInformation")
     public String userInf(@RequestParam Long id, Model model){
         model.addAttribute("userName",userService.findUserById(id).getUsername());

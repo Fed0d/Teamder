@@ -14,6 +14,7 @@
 </head>
 
 <body>
+<%@ include file="Blocks/header.jsp"%>
 <div>
     <h1> Мы поможем вам найти с кем поиграть!!! Опишите его...</h1>
     <form method="post">

@@ -50,6 +50,7 @@
     </style>
 </head>
 <body>
+<%@ include file="Blocks/header.jsp"%>
 <div>
     <a href="/addAd">Создать объявление</a>
     <div id="zatemnenie">
