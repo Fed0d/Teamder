@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "t_userInformation")
 public class UserInformation {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String email;
     private String gender;
@@ -19,6 +19,14 @@ public class UserInformation {
 
     public UserInformation(Long id, String email, String gender, String name, String surname, Integer age) {
         this.id = id;
+        this.email = email;
+        this.gender = gender;
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+    }
+
+    public UserInformation(String email, String gender, String name, String surname, Integer age) {
         this.email = email;
         this.gender = gender;
         this.name = name;

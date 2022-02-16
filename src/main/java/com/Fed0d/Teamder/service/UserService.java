@@ -32,9 +32,7 @@ public class UserService implements UserDetailsService {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
-    private UserInformationService userInformationService;
-    @Autowired
-    UserInformationRepository userInformationRepository;
+    UserInformationService userInformationService;
 
 
     @Override
@@ -63,11 +61,11 @@ public class UserService implements UserDetailsService {
         if (userFromDB != null) {
             return false;
         }
-        UserInformation userInformation = new UserInformation();
+        UserInformation userInformation=new UserInformation();
+        userInformationService.saveUserInformation(userInformation);
         user.setUserInformation(userInformation);
         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userInformationRepository.save(userInformation);
         userRepository.save(user);
         return true;
     }
