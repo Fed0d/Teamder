@@ -46,12 +46,6 @@ public class UserInformationService {
     }
 
     public boolean saveUserInformation(UserInformation user) {
-        UserInformation userFromDB = userInformationRepository.findByEmail(user.getEmail());
-
-        if (userFromDB != null) {
-            return false;
-        }
-
         userInformationRepository.save(user);
         return true;
     }
