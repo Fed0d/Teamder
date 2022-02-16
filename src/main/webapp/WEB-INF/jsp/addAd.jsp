@@ -15,36 +15,69 @@
 <body>
 <%@ include file="Blocks/header.jsp"%>
 <div>
-    <h1> Мы поможем вам найти с кем поиграть!!! Опишите его...</h1>
-    <form method="post">
+    <h2 style="padding-left: 20px;" class=" mb-3"> Мы поможем вам найти с кем поиграть!!! Опишите его...</h2>
+    <form class="needs-validation" method="post" style="padding-left: 20px;">
+
         <p><input type="hidden" name="id" value="${ad.id}"></p>
-        <input type="text" name="tag" value="${ad.tag}" placeholder="Название">
-        <p>Возраст: от </p><input type="number" value="${ad.lowAgeLvl}" name="lowAgeLvl">
-        <p>до</p> <input type="number" value="${ad.highAgeLvl}" name="highAgeLvl"></p>
-        <input type="text" name="gender" value="${ad.gender}" placeholder="Введите пол">
-        <input type="text" name="elo" value="${ad.elo}" placeholder="введите рейтинг">
-
-
-        <p>
-            <select size="5" name="game">
-                <option disabled>Выберите игру</option>
-                <c:forEach items="${games}" var="game">
-                    <option value="${game.gameName}">${game.gameName}</option>
-                </c:forEach>
-            </select>
-        </p>
-
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="Name">Тэг</label>
+                <input type="text" name="tag" class="form-control" id="Name" placeholder="" value="${ad.tag}" required="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <label for="lowAgeLvl">Возраст: от</label>
+                <input class="form-control" id="lowagelvl" type="number" value="${ad.lowAgeLvl}" name="lowAgeLvl"required="">
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="highAgeLvl">до</label>
+                <input class="form-control" type="number" id="highAgeLvl" value="${ad.highAgeLvl}" name="highAgeLvl" required="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="Gender">Гендер</label>
+                <input type="text" name="gender" value="${ad.gender}" class="form-control" id="Gender" placeholder="" required="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="Elo">Эло</label>
+                <input type="text" name="elo" value="${ad.elo}" class="form-control" id="Elo" placeholder="" required="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5 mb-3">
+                <label for="game">Игра</label>
+                <select class="custom-select d-block w-100" id="game"  name="game" required="">
+                    <option disabled>Выберите игру</option>
+                    <c:forEach items="${games}" var="game">
+                        <option value="${game.gameName}">${game.gameName}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
         <br>
-        <p>
-            <select size="5" name="goal">
-                <option disabled>Выберите цель игры</option>
-                <c:forEach items="${goals}" var="goal">
-                    <option value="${goal.goalName}">${goal.goalName}</option>
-                </c:forEach>
-            </select>
-        </p>
-        <input type="text" name="text" value="${ad.text}" placeholder="Текст">
-        <button type="submit">Добавить</button>
+        <div class="row">
+            <div class="col-md-5 mb-3">
+                <label for="goal">Цель игры</label>
+                <select class="custom-select d-block w-100" id="goal"  name="goal" required="">
+                    <option disabled>Выберите цель игры</option>
+                    <c:forEach items="${goals}" var="goal">
+                        <option value="${goal.goalName}">${goal.goalName}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="Text">Текст</label>
+                <input type="text" name="text" value="${ad.text}" class="form-control" id="Text" placeholder="" required="">
+            </div>
+        </div>
+
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Добавить</button>
     </form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

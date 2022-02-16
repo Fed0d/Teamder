@@ -81,7 +81,7 @@ public class NewsController {
             ad=new Ad(id, tag.get(), lowAgeLvl.get(), highAgeLvl.get(), gender.get(), text.get(), elo.get(),date,author, gamesService.findGameByGamName(game.get()), goalsService.findGoalByGoalName(goal.get()));
 
             adRepository.save(ad);
-            return "myAds";
+            return "redirect:/myAds";
 
         }else{
         Optional<Ad> ad=adRepository.findById(id);
