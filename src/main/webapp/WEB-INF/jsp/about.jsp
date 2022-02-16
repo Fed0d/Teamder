@@ -10,6 +10,6 @@
 <body>
 <%@ include file="Blocks/header.jsp"%>
 <div>
-
+<h1>ХАХАХАХХ</h1>
 </div>
 </body>
