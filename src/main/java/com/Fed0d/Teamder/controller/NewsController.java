@@ -85,7 +85,9 @@ public class NewsController {
 
         }else{
         Optional<Ad> ad=adRepository.findById(id);
-        if(ad.isPresent()?(ad.get().getAuthor().getId()==((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId()):false){
+        long a=  ad.get().getAuthor().getId();
+        long b= ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        if(ad.isPresent()?(a==b):false){
         model.addAttribute("ad",ad.get());
         return "addAd";}
         else return "empty";}
