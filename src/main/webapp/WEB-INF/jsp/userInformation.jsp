@@ -12,16 +12,14 @@
 </head>
 <body>
 <%@ include file="Blocks/header.jsp"%>
-<div>
+<div class="text-center">
     <h1>${userName}</h1>
     <div>
         <p>${userInformation.name} ${userInformation.surname}</p>
         <p>Возраст: ${userInformation.age}</p>
-        <p>Пол: ${userInformation.gender}</p><br>
-        <a href="/chat?id=${userId}">Перейти к чату</a>
+        <p>Пол: ${userInformation.gender}</p>
+        <a href="/chat?id=${userId}"><button type="button" class="btn btn-success">Перейти к чату</button></a>
     </div>
-
-    <a href="/">Главная</a>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

@@ -9,8 +9,7 @@
 </head>
 <body>
 <%@ include file="Blocks/header.jsp"%>
-<div th:insert="Blocks/header :: header"></div>
-<div class="container mt-5">
+<div class="container text-center">
     <h1>Список великих работников:</h1>
     <ul>
         <li>Самородов Дмитрий - мастер</li>
@@ -18,6 +17,5 @@
         <li>Розенберг Артур - просто хороший парень</li>
     </ul>
 </div>
-<div th:insert="Blocks/footer :: footer"></div>
 </body>
 </html>

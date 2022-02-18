@@ -5,21 +5,22 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Log in with your account</title>
+    <title>Управление пользователями</title>
     <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 
 <body>
-<%@ include file="Blocks/header.jsp"%>
-<div>
-    <table>
-        <thead>
+<%@ include file="Blocks/header.jsp" %>
+<div class="text-center">
+    <table class="table table-striped table-bordered">
+        <thead class="thead-inverse">
         <th>ID</th>
         <th>UserName</th>
         <th>Password</th>
         <th>Roles</th>
+        <th>Action</th>
         </thead>
         <c:forEach items="${allUsers}" var="user">
             <tr>
@@ -33,11 +34,9 @@
                     <form action="${pageContext.request.contextPath}/admin" method="post">
                         <input type="hidden" name="userId" value="${user.id}"/>
                         <input type="hidden" name="action" value="delete"/>
-                        <button type="submit">Delete</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
-
                 </td>
-
             </tr>
         </c:forEach>
     </table>
