@@ -1,3 +1,4 @@
+<jsp:useBean id="userInformation" scope="request" type="com.Fed0d.Teamder.entity.UserInformation"/>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 
@@ -13,6 +14,7 @@
 <body>
 <%@ include file="Blocks/header.jsp"%>
 <div class="text-center">
+    <img src="/images/${userInformation.avatars.get(0)}" height="60px">
     <h1>${userName}</h1>
     <div>
         <p>${userInformation.name} ${userInformation.surname}</p>

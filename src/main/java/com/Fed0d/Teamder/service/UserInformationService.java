@@ -1,5 +1,6 @@
 package com.Fed0d.Teamder.service;
 
+import com.Fed0d.Teamder.entity.Avatar;
 import com.Fed0d.Teamder.entity.User;
 import com.Fed0d.Teamder.entity.UserInformation;
 import com.Fed0d.Teamder.repository.UserInformationRepository;
@@ -7,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -45,14 +48,29 @@ public class UserInformationService {
         return userInformations;
     }
 
-    public boolean saveUserInformation(UserInformation user) {
+    public void saveUserInformation(UserInformation user, MultipartFile file) throws IOException {
+        Avatar image;
+        if (file.getSize() != 0) {
+            image = toImageEntity(file);
+            image.setPreviewImage(true);
+            user.addAvatarToUser(image);
+        }
+        UserInformation userInformationFromDb = userInformationRepository.save(user);
+        userInformationFromDb.setPreviewAvatarId(userInformationFromDb.getAvatars().get(0).getId());
         userInformationRepository.save(user);
-        return true;
     }
 
-    public void updateUserInformation(UserInformation userInformation) {
-        userInformationRepository.save(userInformation);
+    private Avatar toImageEntity(MultipartFile file) throws IOException {
+        Avatar image = new Avatar();
+        image.setName(file.getName());
+        image.setOriginalFileName(file.getOriginalFilename());
+        image.setContentType(file.getContentType());
+        image.setSize(file.getSize());
+        image.setBytes(file.getBytes());
+        return image;
     }
 
-
+    public void saveUserInformation(UserInformation user){
+        userInformationRepository.save(user);
+    }
 }

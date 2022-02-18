@@ -17,7 +17,7 @@
 <%@ include file="Blocks/header.jsp"%>
 <div>
     <h1 style="padding-left: 20px;" class=" mb-3"> Расскажите о себе</h1>
-    <form class="needs-validation" method="post" style="padding-left: 20px;">
+    <form class="needs-validation" method="post" style="padding-left: 20px;" enctype="multipart/form-data">
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="email">Email</label>
@@ -45,6 +45,9 @@
                 <label for="Gender">Гендер</label>
                 <input type="text" name="gender" value="${userInformation.gender}" class="form-control" id="Gender" placeholder="Введите пол" required="">
             </div>
+        </div>
+        <div class="row">
+            <input type="file" name="file">
         </div>
         <button class="btn btn-primary btn-lg btn-block" type="submit">Добавить</button>
     </form>
