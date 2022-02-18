@@ -64,7 +64,7 @@ public class NewsController {
 
         adRepository.save(ad);
 
-        return "news";
+        return "redirect:/news";
     }
     @PostMapping("/myAds")
     public String updateAd(@RequestParam Long id, @RequestParam Optional<String> tag, @RequestParam Optional<Integer> lowAgeLvl,

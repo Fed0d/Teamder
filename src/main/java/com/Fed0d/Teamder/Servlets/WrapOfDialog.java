@@ -7,10 +7,21 @@ public class WrapOfDialog{
     private Long id;
     private User interlocutor;
     private Message lastMessage;
-    public WrapOfDialog(Long id, User interlocutor, Message lastMessage) {
+    boolean isYours;
+
+    public WrapOfDialog(Long id, User interlocutor, Message lastMessage, boolean isYours) {
         this.id = id;
         this.interlocutor = interlocutor;
         this.lastMessage = lastMessage;
+        this.isYours = isYours;
+    }
+
+    public boolean getIsYours() {
+        return isYours;
+    }
+
+    public void setYours(boolean yours) {
+        isYours = yours;
     }
 
     public Long getId() {

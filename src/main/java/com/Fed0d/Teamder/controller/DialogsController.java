@@ -8,6 +8,8 @@ import com.Fed0d.Teamder.entity.User;
 import com.Fed0d.Teamder.repository.DialogRepository;
 import com.Fed0d.Teamder.repository.MessageRepository;
 import com.Fed0d.Teamder.service.UserService;
+import com.vdurmont.emoji.Emoji;
+import com.vdurmont.emoji.EmojiManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,10 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class DialogsController {
@@ -43,13 +42,21 @@ public class DialogsController {
             Dialog dialog=it.next();
             wrapOfDialogs.add(new WrapOfDialog(dialog.getId(),
                     userService.findUserById(dialog.getUser1().getId().equals( user.getId())? dialog.getUser2().getId() : dialog.getUser1().getId()),
-                    dialog.getMessage().isEmpty()?null: dialog.getlastMessage()));
+                    dialog.getMessage().isEmpty()?null: dialog.getlastMessage(),
+                    dialog.getlastMessage().getUserId().equals(user.getId())));
         }
         model.put("wrapOfDialogs",wrapOfDialogs);
         return "dialogs";
     }
     @GetMapping("/chat")
     public  String chat(@RequestParam Long id, Map<String, Object> model){
+        Iterator<Emoji> emojisit=EmojiManager.getAll().iterator();
+        List<String> emojis=new ArrayList<>();
+        while (emojisit.hasNext()){
+            emojis.add(emojisit.next().getHtmlDecimal());
+        }
+
+        model.put("emojis", emojis);
         User user=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User interlocutor=userService.findUserById(id);
         Dialog dialog;
@@ -62,9 +69,21 @@ public class DialogsController {
             dialog.setUser1(user);
             dialog.setUser2(interlocutor);
         }
+        dialog.setMessage(dialog.getMessage());
+        if(!dialog.getMessage().isEmpty() && !dialog.getlastMessage().getUserId().equals(user.getId()))
+        {
+            dialog.getlastMessage().setRead(true);
+            messageRepository.save(dialog.getlastMessage());
+        }
         dialogRepository.save(dialog);
+
         Dialog dia=dialogRepository.findByUser1_IdAndUser2_Id(user.getId(), id).isPresent()?dialogRepository.findByUser1_IdAndUser2_Id(user.getId(), id).get():dialogRepository.findByUser1_IdAndUser2_Id( id, user.getId()).get();
+        dia.setMessage(dia.getMessage());
         model.put("interlocutor", interlocutor);
+        if(!dialog.getMessage().isEmpty() && !dialog.getlastMessage().getUserId().equals(user.getId()))
+        {
+            dia.getlastMessage().setRead(true);
+        }
         model.put("dialog",dia);
         return "chat";
     }
@@ -77,10 +96,11 @@ public class DialogsController {
                 dialogRepository.findByUser1_IdAndUser2_Id(id,user.getId()).get() :
                 ((dialogRepository.findByUser1_IdAndUser2_Id(user.getId(), id).isPresent())?
                         (dialogRepository.findByUser1_IdAndUser2_Id(user.getId(), id).get()):null);
-        if(!dialog.getMessage().isEmpty())
-        {dialog.getlastMessage().setRead(true);
+        if(!dialog.getMessage().isEmpty() && !dialog.getlastMessage().getUserId().equals(user.getId()))
+        {
+            dialog.getlastMessage().setRead(true);
         }
-        Message message= new Message(text,false, LocalDate.now());
+        Message message= new Message(text,false, LocalDate.now(), user.getId());
         dialog.addMessage(message);
         messageRepository.save(message);
         dialogRepository.save(dialog);

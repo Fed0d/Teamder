@@ -1,10 +1,9 @@
 package com.Fed0d.Teamder.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
 
 @Entity
 @Table(name = "t_dialogs")
@@ -45,21 +44,24 @@ public class Dialog {
     public void setUser1(User user1) {
         this.user1 = user1;
     }
+    public void sortMessage(){
+        message.sort(new Comparator<Message>() {
+            @Override
+            public int compare(Message o1, Message o2) {
+                if(o1.getDate().isAfter(o2.getDate())){
+                    return -1;
+                }
+                return 1;
+            }
+        });
+    }
 
     public void setUser2(User user2) {
         this.user2 = user2;
     }
     public Message getlastMessage(){
-        message.sort(new Comparator<Message>() {
-            @Override
-            public int compare(Message o1, Message o2) {
-               if(o1.getDate().isAfter(o2.getDate())){
-                   return 1;
-               }
-               return -1;
-            }
-        });
-        return message.get(0);
+
+        return message.get(message.size()-1);
     }
     public Long getId() {
         return id;
@@ -74,6 +76,12 @@ public class Dialog {
     }
 
     public List<Message> getMessage() {
+        Collections.sort(message,new Comparator<Message>() {
+
+            @Override
+            public int compare(Message o1, Message o2) {
+                return o1.getDate().compareTo(o2.getDate());}
+        });
         return message;
     }
 

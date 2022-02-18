@@ -12,15 +12,17 @@ public class Message {
     private String text;
     private boolean isRead;
     private LocalDate date;
-
+    private Long userId;
 
     public Message() {
     }
 
-    public Message(String text, boolean isRead, LocalDate date) {
+
+    public Message(String text, boolean isRead, LocalDate date, Long userId) {
         this.text = text;
         this.isRead = isRead;
         this.date = date;
+        this.userId = userId;
     }
 
     public Message(Long id, String text, boolean isRead, LocalDate date, Dialog dialog) {
@@ -29,7 +31,13 @@ public class Message {
         this.isRead = isRead;
         this.date = date;
     }
+    public Long getUserId() {
+        return userId;
+    }
 
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
     public void setId(Long id) {
         this.id = id;
     }
@@ -55,7 +63,7 @@ public class Message {
         this.text = text;
     }
 
-    public boolean isRead() {
+    public boolean getIsRead() {
         return isRead;
     }
 
