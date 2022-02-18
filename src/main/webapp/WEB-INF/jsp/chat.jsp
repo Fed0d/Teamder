@@ -28,19 +28,31 @@
             <p>${message.text}</p>
         </c:forEach>
     </div>
-
+    <div style="margin-bottom: 15px">
     <form method="post" style="padding-top: 10px; height: 150px;">
         <input type="hidden" name="id" value="${dialog.id}">
-        <input type="text" name="text" placeholder="Текст" style="width: 500px; height: 100px;">
-        <button type="submit" class="btn btn-success" style="height: 70px; padding-left: 10px; padding-top: 0 px;">Отправить</button>
+        <%@ include file="Blocks/emojiMenu.jsp"%>
+        <input  type="text" name="text" placeholder="Текст" id="messageInput" style=" display:inline-block; width: 450px; height: 100px;" autofocus>
+        <button type="submit" class="btn btn-success" style="height: 70px;width: 100px; padding-left: 10px;display:inline-block; ">Отправить</button>
     </form>
+    </div>
 </div>
+
 <script type="text/javascript">
     var block = document.getElementById("chatbox");
     block.scrollTop = block.scrollHeight;
+
+    function addEmoji(title) {
+        messageInput.value += " " + title + " ";
+//Тут же можно добавить закрытие контейнера
+        messageInput.focus();
+    }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
+<small class="d-block text-right mt-3" style="padding-left: 20px">
+    <a href="/dialogs"><button type="button" class="btn btn-secondary">Назад</button></a>
+</small>
 </body>
 </html>
