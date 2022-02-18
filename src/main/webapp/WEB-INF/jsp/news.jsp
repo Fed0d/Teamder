@@ -104,7 +104,7 @@
     <a href="#zatemnenie">
         <button type="button" class="btn btn-secondary">Фильтры</button>
     </a>
-    <div class="row mb-2">
+    <div class="row mb-2 mt-2">
         <c:forEach items="${ads}" var="ad" varStatus="counter">
             <c:choose>
                 <c:when test="${counter.count % 2 == 0}">
@@ -119,6 +119,10 @@
                                 <p class="card-text mb-auto">${ad.text}</p>
                                 <a href="/userInformation?id=${ad.author.id}"
                                    class="stretched-link">${ad.author.username}</a>
+                                <sec:authorize access="hasRole('ADMIN')">
+                                    <button type="button" class="btn btn-secondary">Редактировать</button>
+                                </sec:authorize>
+
                             </div>
                             <div class="col-auto d-none d-lg-block">
                                 <svg class="bd-placeholder-img" width="200" height="250"
@@ -144,6 +148,9 @@
                                 <p class="mb-auto">${ad.text}</p>
                                 <a href="/userInformation?id=${ad.author.id}"
                                    class="stretched-link">${ad.author.username}</a>
+                                <sec:authorize access="hasRole('ADMIN')">
+                                    <button type="button" class="btn btn-secondary">Редактировать</button>
+                                </sec:authorize>
                             </div>
                             <div class="col-auto d-none d-lg-block">
                                 <svg class="bd-placeholder-img" width="200" height="250"
