@@ -60,7 +60,7 @@ public class UserInformationService {
         userInformationRepository.save(user);
     }
 
-    private Avatar toImageEntity(MultipartFile file) throws IOException {
+    public Avatar toImageEntity(MultipartFile file) throws IOException {
         Avatar image = new Avatar();
         image.setName(file.getName());
         image.setOriginalFileName(file.getOriginalFilename());
@@ -70,7 +70,7 @@ public class UserInformationService {
         return image;
     }
 
-    public void saveUserInformation(UserInformation user){
+    public void saveUserInformation(UserInformation user) {
         userInformationRepository.save(user);
     }
 }

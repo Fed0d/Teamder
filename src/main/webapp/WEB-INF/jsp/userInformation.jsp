@@ -14,7 +14,7 @@
 <body>
 <%@ include file="Blocks/header.jsp"%>
 <div class="text-center">
-    <img src="/images/${userInformation.avatars.get(0)}" height="60px">
+    <img src="/avatars/${userInformation.previewAvatarId}" style="height: 60px">
     <h1>${userName}</h1>
     <div>
         <p>${userInformation.name} ${userInformation.surname}</p>
