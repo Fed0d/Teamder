@@ -42,7 +42,13 @@ public class UserInformationController {
     public String userInfGetForm(Model model){
         User user=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserInformation userInformation=userService.findUserById(user.getId()).getUserInformation();
-
+        if(userInformation.isDiscPresent()){
+        model.addAttribute("discordName",userInformation.getDiscord().split("#")[0]);
+        model.addAttribute("discordTag",userInformation.getDiscord().split("#")[1]);}
+        if(userInformation.isVKPresent()){
+            String s= userInformation.getVk().split("/")[userInformation.getVk().split("/").length-1];
+            model.addAttribute("vkName",userInformation.getVk().split("/")[userInformation.getVk().split("/").length-1]);
+        }
         model.addAttribute("userInformation", userInformation);
         return "userInformationForm";
     }
@@ -65,7 +71,9 @@ public class UserInformationController {
     @PostMapping("userInformationForm")
     public String userInfSetForm(@RequestParam String email, @RequestParam String name,
                                  @RequestParam String surname, @RequestParam Integer age,
-                                 @RequestParam String gender, Map<String, Object> model) {
+                                 @RequestParam String gender, @RequestParam Optional<String> vk,
+                                 @RequestParam Optional<String> discordName, @RequestParam Optional<String> discordTag,
+                                 @RequestParam Optional<String> steam, Map<String, Object> model) {
         User user=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserInformation userInformation=userService.findUserById(user.getId()).getUserInformation();
         userInformation.setAge(age);
@@ -73,6 +81,12 @@ public class UserInformationController {
         userInformation.setName(name);
         userInformation.setSurname(surname);
         userInformation.setGender(gender);
+        if(discordName.isPresent()&&discordTag.isPresent()&&!discordName.get().isEmpty()&&!discordTag.get().isEmpty())
+        userInformation.setDiscord(discordName.get()+"#"+discordTag.get());
+        if(steam.isPresent()&&!steam.get().isEmpty()&& steam.get().contains("https://steamcommunity.com/profiles/"))
+            userInformation.setSteam(steam.get());
+        if(vk.isPresent()&&!vk.get().isEmpty())
+            userInformation.setVk("https://vk.com/"+vk.get());
         userInformationService.updateUserInformation(userInformation);
 
         return "redirect:/";
