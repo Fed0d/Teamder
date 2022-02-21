@@ -13,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -71,11 +73,12 @@ public class UserInformationController {
     @PostMapping("userInformationForm")
     public String userInfSetForm(@RequestParam String email, @RequestParam String name,
                                  @RequestParam String surname, @RequestParam Integer age,
-                                 @RequestParam String gender, @RequestParam Optional<String> vk,
+                                 @RequestParam String gender, Optional<String> vk,
                                  @RequestParam Optional<String> discordName, @RequestParam Optional<String> discordTag,
-                                 @RequestParam Optional<String> steam, Map<String, Object> model) {
-        User user=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        UserInformation userInformation=userService.findUserById(user.getId()).getUserInformation();
+                                 @RequestParam Optional<String> steam, @RequestParam("file") MultipartFile file,
+                                 Map<String, Object> model) throws IOException {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserInformation userInformation = userService.findUserById(user.getId()).getUserInformation();
         userInformation.setAge(age);
         userInformation.setEmail(email);
         userInformation.setName(name);
@@ -89,6 +92,7 @@ public class UserInformationController {
             userInformation.setVk("https://vk.com/"+vk.get());
         userInformationService.updateUserInformation(userInformation);
 
+        userInformationService.saveUserInformation(userInformation, file);
         return "redirect:/";
     }
 

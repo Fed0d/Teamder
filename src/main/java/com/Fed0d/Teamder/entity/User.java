@@ -16,7 +16,7 @@ public class User implements UserDetails {
     private Long id;
     @Size(min = 3, message = "Не меньше 3 знаков")
     private String username;
-    @Size(min = 5, message = "Не меньше 5 знаков")
+    @Size(min = 4, message = "Не меньше 4 знаков")
     private String password;
     @Transient
     private String passwordConfirm;

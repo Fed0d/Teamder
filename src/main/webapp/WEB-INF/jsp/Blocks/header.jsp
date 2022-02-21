@@ -22,8 +22,12 @@
     </sec:authorize>
     <sec:authorize access="!isAuthenticated()">
         <div class="col-md-3 text-end" style="padding-right: 1%">
-            <a href="/login"><button type="button" class="btn btn-outline-primary me-2">Войти</button></a>
-            <a href="/registration"><button type="button" class="btn btn-primary">Зарегистрироваться</button></a>
+            <a href="/login">
+                <button type="button" class="btn btn-outline-primary me-2">Войти</button>
+            </a>
+            <a href="/registration">
+                <button type="button" class="btn btn-primary">Зарегистрироваться</button>
+            </a>
         </div>
     </sec:authorize>
     <sec:authorize access="isAuthenticated()">
@@ -33,6 +37,7 @@
             <a href="/userInformationForm" class="d-block link-dark text-decoration-none dropdown-toggle me-2"
                style="font-weight: bold" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                     ${pageContext.request.userPrincipal.name}
+                        <img src="/avatars/${pageContext.request.userPrincipal.getPrincipal().userInformation.previewAvatarId}" alt="mdo" width="32" height="32" class="rounded-circle">
             </a>
             <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
                 <li><a class="dropdown-item" href="/userInformationForm">О себе</a></li>

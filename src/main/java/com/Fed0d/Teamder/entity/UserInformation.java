@@ -3,7 +3,8 @@ package com.Fed0d.Teamder.entity;
 import org.apache.jasper.tagplugins.jstl.core.Url;
 
 import javax.persistence.*;
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "t_userInformation")
@@ -19,6 +20,27 @@ public class UserInformation {
     private String vk;
     private String steam;
     private String discord;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,
+    mappedBy = "userInformation")
+    private List<Avatar> avatars = new ArrayList<>();
+    private Long previewAvatarId;
+
+    public List<Avatar> getAvatars() {
+        return avatars;
+    }
+
+    public void setAvatars(List<Avatar> avatars) {
+        this.avatars = avatars;
+    }
+
+    public Long getPreviewAvatarId() {
+        return previewAvatarId;
+    }
+
+    public void setPreviewAvatarId(Long previewAvatarId) {
+        this.previewAvatarId = previewAvatarId;
+    }
+
     public UserInformation() {
     }
 
@@ -127,5 +149,10 @@ public class UserInformation {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public void addAvatarToUser(Avatar image) {
+        image.setUserInformation(this);
+        avatars.add(image);
     }
 }
