@@ -90,7 +90,6 @@ public class UserInformationController {
             userInformation.setSteam(steam.get());
         if(vk.isPresent()&&!vk.get().isEmpty())
             userInformation.setVk("https://vk.com/"+vk.get());
-        userInformationService.updateUserInformation(userInformation);
 
         userInformationService.saveUserInformation(userInformation, file);
         return "redirect:/";
